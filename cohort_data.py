@@ -12,8 +12,9 @@ def unique_houses(filename):
             ])
 
     """
-
+    # Creates empty set houses
     houses = set()
+    # Opens data file and binds house_name to it
     house_data = open(filename)
 
     #Example line: Adrian|Pucey|Slytherin|Snape|Winter 2016
@@ -21,8 +22,10 @@ def unique_houses(filename):
         columns = line.split("|")
         person_house = columns[2]
 
+        # Removes empty string if person doesn't have a house
         if person_house == "":
             pass
+        # Adds person_house to houses
         else:
             houses.add(person_house)
 
@@ -43,6 +46,7 @@ def sort_by_cohort(filename):
         ["Euan Abercrombie", "Katie Bell", "Lavender Brown", ...]]
 
     """
+    house_data = open(filename)
 
     all_students = []
     winter_16 = []
@@ -53,7 +57,37 @@ def sort_by_cohort(filename):
 
     # Code goes here
 
+    #Example line: Adrian|Pucey|Slytherin|Snape|Winter 2016
+
+    # For every line in house_data, do everything that follows
+    for line in house_data: 
+        # Split each line into list of strings separated by pipes 
+        columns = line.strip().split("|")
+
+        # Creates full name from first two columns
+        full_name = columns[0] + " " + columns[1]
+
+        # Exclude instructors
+        if columns[-1] == "I":
+            pass
+        elif columns[-1] == "G":
+            ghosts.append(full_name)
+        elif columns[-1] == "Fall 2015":
+            fall_15.append(full_name)
+        elif columns[-1] == "Winter 2016":
+            winter_16.append(full_name)
+        elif columns[-1] == "Spring 2016":
+            spring_16.append(full_name)
+        else:
+            summer_16.append(full_name)
+
+    print ghosts
+  
+    all_students = [fall_15, winter_16, spring_16, summer_16]
+
+    print all_students
     return all_students
+
 
 
 def students_by_house(filename):
@@ -176,7 +210,7 @@ def find_house_members_by_student_name(student_list):
 # Here is some useful code to run these functions!
 
 print unique_houses("cohort_data.txt")
-# print sort_by_cohort("cohort_data.txt")
+print sort_by_cohort("cohort_data.txt")
 # print students_by_house("cohort_data.txt")
 # all_students_data = all_students_tuple_list("cohort_data.txt")
 # print all_students_data
